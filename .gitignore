@@ -1,0 +1,10 @@
+*.pyc
+*~
+__pycache__
+django_env
+peeinn_env
+db.sqlite3
+/static
+/media/images
+.DS_Store
+secrets.json

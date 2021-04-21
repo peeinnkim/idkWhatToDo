@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>IDK WHAT TO DO</title>
+    <link rel="stylesheet" href="{% static 'css/cal_main.css' %}">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="{% static 'js/token.js' %}"></script>
+  </head>
+
+  <body>
+    <div class="main">
+      <div class="content-wrap main-login">
+        <form action="{% url 'todo:join' %}" method="post" class="join-wrap">
+          {% csrf_token %}
+          <h2>CREATE ACCOUNT</h2>
+
+          <p class="form-items">
+            <label>ID</label>
+            <input type="text" name="user_id">
+          </p>
+
+          <p class="form-items">
+            <label>PASSWORD</label>
+            <input type="password" name="password">
+          </p>
+
+          <p class="form-items">
+            <label>NAME</label>
+            <input type="text" name="name">
+          </p>
+
+          <p class="form-items">
+            <label>B-DAY</label>
+            <input type="date"  name="birthday" value="1990-01-01">
+          </p>
+
+          <p class="form-items">
+            <label>E-MAIL</label>
+            <input type="email" name="mail">
+          </p>
+
+          <p>
+            <input type="reset" value="BACK" style="background:navajowhite;">
+            <input type="submit" value="JOIN" style="background:darkseagreen;">
+          </p>
+
+        </form>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    $('input[type="reset"]').click(function(){
+      location.href = '{% url 'todo:index' %}';
+    })
+
+  </script>
+
+
+</html>

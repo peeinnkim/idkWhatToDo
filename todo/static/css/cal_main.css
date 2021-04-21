@@ -1,0 +1,339 @@
+@font-face {
+  font-family: '116angmuburi';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.0/116angmuburi.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+    font-family: 'BCcardL';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.1/BCcardL.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+}
+.main {
+  width: 100%;
+  height: 100vh;
+  font-family: 'BCcardL', '116angmuburi', 'sans-serif';
+}
+.bg-img {
+  width: 100%;
+  height: 100vh;
+  background: url('../imgs/bg-dark.jpg') no-repeat;
+  background-size: cover;
+  position: fixed;
+  z-index: -555555;
+}
+.content-wrap {
+  overflow: hidden;
+}
+.main-login {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('../imgs/bg-light.jpg') no-repeat;
+  background-size: cover;
+}
+
+
+/* login-area */
+.login-wrap {
+  background: rgba(255,255,255,0.6);
+  width: 55%;
+  height: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 40px;
+  justify-content: center;
+}
+div.login-txt {
+  font-size: 1.6rem;
+  margin-bottom: 60px;
+  text-align: center;
+}
+div.login-txt > h2 {
+  font-size: 3rem;
+  letter-spacing: 0.25px;
+  margin: 40px 0;
+}
+div.login-box {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+div.login-box-id,
+div.login-box-pw {
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 10px 0;
+}
+div.login-box-id > input,
+div.login-box-pw > input {
+  font-size: 0.8rem;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  padding: 8px 6px;
+  background: none;
+  margin: 40px 0 10px;
+}
+.error-msg {
+  color: #FD1C03;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+#btn-login {
+  width: 31px;
+  height: 31px;
+  display: block;
+  margin: 40px 0 20px;
+  cursor: pointer;
+}
+#btn-to-join {
+  margin-bottom: 40px;
+  color: #FF8C00;
+}
+#btn-to-join:hover {
+  color: hotpink;
+}
+
+
+/* calendar-area */
+div.left-wrap {
+  width: 65%;
+  height: 100vh;
+  float: left;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+
+table#calendar {
+  width: 85%;
+  height: 85%;
+  margin: 0 auto;
+  text-align: center;
+  border-collapse: collapse;
+  font-family: '116angmuburi','sans-serif';
+  color: #f8f8f8;
+}
+table#calendar > thead > tr:first-child > td {
+  padding: 20px 0;
+}
+table#calendar > thead td > label {
+  cursor: pointer;
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+table#calendar > thead > tr:last-child > td {
+  width: 14%;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+table#calendar > thead #cur-month {
+  font-weight: bold;
+  font-size: 2rem;
+}
+table#calendar > tbody td {
+  font-size: 2.3rem;
+}
+table#calendar > tbody td.day {
+  cursor: pointer;
+}
+.sun,
+table#calendar > tbody > tr > td:first-child {
+  color: #FD1C03;
+}
+.sat,
+table#calendar > tbody > tr > td:last-child {
+  color: #0062FF;
+}
+table#calendar > tbody > tr > td:hover {
+  font-weight: bold;
+}
+.today {
+  font-weight: bold;
+  color: #8a2be2;
+}
+.day-active {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 100px;
+  font-weight: bold;
+}
+
+
+
+
+
+/* todo-area */
+div.login-status {
+  width: 73%;
+  margin: 70px auto 0px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #f8f8f8;
+}
+div.login-status > b {
+  font-size: 1rem;
+  margin-right: 6px;
+}
+div.login-status > span {
+  margin-top: 2px;
+}
+div.login-status > a {
+  margin-left: 8px;
+}
+div.login-status > a > img {
+  width: 19px;
+  height: 19px;
+  filter: invert(1);
+}
+
+
+div.right-wrap {
+  width: 35%;
+  height: 100vh;
+  float: left;
+  right: 0;
+  top: 0;
+}
+div#todo {
+  width: 65%;
+  height: 500px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 3px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+div#todo .date {
+  padding: 10px 0;
+}
+div#todo #show-fdate {
+  text-align: center;
+}
+ul.todo-list > li {
+  padding: 20px 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dotted #666;
+}
+ul.todo-list > li:last-child {
+  border-bottom: none;
+}
+ul.todo-list > li > span {
+  width: 87%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+}
+ul.todo-list > li > img {
+  width: 20px;
+  height: 20px;
+  font-style: normal;
+  cursor: pointer;
+}
+
+
+.todo-list-area {
+  height: 403px;
+  margin: 15px 0;
+  overflow-y: auto;
+}
+.todo-input-area {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.todo-input-area > input {
+  width: 96%;
+  padding: 10px 6px;
+  border: none;
+  background-color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  letter-spacing: 0.015em;
+  outline: none;
+}
+.todo-input-area > #btn-input {
+  width: 19px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+}
+.todo-input-area > #btn-input > img {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* JOIN */
+.join-wrap {
+  background: rgba(255,255,255,0.6);
+  width: 55%;
+  height: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 40px;
+  justify-content: space-evenly;
+}
+.form-items {
+  width: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-items input {
+  font-size: 0.8rem;
+  background: rgba(0,0,0,0.4);
+  color: #f8f8f8;
+  padding: 6px;
+  border: none;
+  outline: none;
+}
+.join-wrap > p:last-child input{
+  width: 60px;
+  height: 60px;
+  border: 2px solid white;
+  border-radius: 80px;
+  padding: 10px;
+  color: white;
+  margin: 0 30px;
+  box-shadow: 0px 0.7px 2px rgb(0 0 0 / 30%);
+  cursor: pointer;
+}
+.join-wrap > p:last-child input:hover {
+  box-shadow: 0px -0.7px 2px rgb(0 0 0 / 30%);
+}

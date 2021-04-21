@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CALENDAR</title>
+    <link rel="stylesheet" href="{% static 'css/cal_main.css' %}">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="{% static 'js/token.js' %}"></script>
+  </head>
+
+  <body>
+    <div class="main">
+      <div class="bg-img"></div>
+
+      <div class="content-wrap">
+        <!-- calendar -->
+        <div class="left-wrap">
+          <table id="calendar">
+            <thead>
+              <tr>
+                <td>
+                  <label id="cal-prev">&#60;</label>
+                </td>
+                <td id="cur-month" colspan="5"></td>
+                <td>
+                  <label id="cal-next">&#62;</label>
+                </td>
+              </tr>
+              <tr>
+                <td class="sun">S</td>
+                <td>M</td>
+                <td>T</td>
+                <td>W</td>
+                <td>T</td>
+                <td>F</td>
+                <td class="sat">S</td>
+              </tr>
+            </thead>
+            <tbody class="cal-body"></tbody>
+          </table>
+        </div>
+
+        <div class="right-wrap">
+          {% if request.session.user %}
+            <div class="login-status">
+              <b>{{request.session.user}}</b> <span>로그인 중</span>
+              <a href="{% url 'todo:logout' %}">
+                <img src="{% static 'imgs/ico-start.png' %}">
+              </a>
+            </div>
+          {% endif %}
+
+          <div id="todo">
+            <div>
+              <input type="hidden" value="{{request.session.user_no}}" id="user_no">
+              <input type="hidden" value="{{csrf_token}}" id="csrf_token">
+              <h2 id="show-fdate">20202020</h2>
+            </div>
+
+            <div class="todo-list-area">
+              <ul class="todo-list">
+                {% for todo in todos %}
+                  <li>
+                    <span class="todo-txt">{{ todo.content }}</span>
+                    <img src="{% static 'imgs/ico-del.png' %}" class="btn-removeTodo" data-pk="{{ todo.pk }}">
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <div class="todo-input-area">
+              <input type="text" id="todo-input" placeholder="할일을입력하시오">
+              <a id="btn-input">
+                <img src="{% static 'imgs/ico-enter2.png' %}">
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </body>
+
+  <script src="{% static 'js/calendar.js' %}"></script>
+  <script type="text/javascript">
+
+    /* Calendar */
+    // Place Full Date
+    $('#show-fdate').text($('.today').attr('data-fdate'));
+
+    // Input Button Event
+    $('#btn-input').click(function(){
+      data = {
+        'content': $('#todo-input').val(),
+        'date': $('#show-fdate').text(),
+        'user_no': $('#user_no').val(),
+        'csrfmiddlewaretoken': $('#csrf_token').val()
+      }
+
+      $.ajax({
+        url: "{% url 'todo:addTodo' %}",
+        dataType: 'json',
+        type: 'post',
+        data: data,
+        success: function(data){
+          console.log(data);
+
+          createListItems(data);
+          $('#todo-input').val('');
+        }
+      });
+    });
+
+
+    // Remove Button Event
+    $(document).on('click', '.btn-removeTodo', function(){
+
+      data = {
+        'todo_pk': $(this).attr('data-pk'),
+        'date': $('#show-fdate').text(),
+        'user_no': $('#user_no').val(),
+        'csrfmiddlewaretoken': $('#csrf_token').val()
+      }
+
+
+      $.ajax({
+        url: "{% url 'todo:delTodo' %}",
+        dataType: 'json',
+        type: 'post',
+        data: data,
+        success: function(data){
+          console.log(data);
+
+          createListItems(data);
+
+        }
+      });
+    });
+
+
+    // Day Click Event
+    $(document).on('click', '.day', function(){
+      $('.day').removeClass('day-active');
+      $(this).addClass('day-active');
+      $('#show-fdate').text($(this).attr('data-fdate'));
+
+      data = {
+        'date': $('#show-fdate').text(),
+        'user_no': $('#user_no').val(),
+        'csrfmiddlewaretoken': $('#csrf_token').val()
+      }
+
+      $.ajax({
+        url: "{% url 'todo:getTodo' %}",
+        dataType: 'json',
+        type: 'post',
+        data: data,
+        success: function(data){
+          console.log(data);
+
+          createListItems(data);
+
+        }
+      });
+    });
+
+
+    // Create List Function
+    function createListItems(data){
+      $('.todo-list').empty();
+
+      $.each(data.items, function (i, obj) {
+        let content = obj.fields.content;
+        let pk = obj.pk;
+
+        // $ckBox = $('<input>').attr('type', 'checkbox');
+        $todoSpan = $('<span>').attr('class', 'todo-txt');
+        $todoSpan.text(content);
+        $removeBtn = $('<img>').attr('class', 'btn-removeTodo').attr({'src':'{% static "imgs/ico-del.png" %}', 'data-pk':pk});
+        $todoLi = $('<li>').append($todoSpan).append($removeBtn);
+
+        $('.todo-list').append($todoLi);
+
+      });
+    }
+
+  </script>
+</html>

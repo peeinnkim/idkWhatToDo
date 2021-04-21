@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>IDK WHAT TO DO</title>
+    <link rel="stylesheet" href="{% static 'css/cal_main.css' %}">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="{% static 'js/token.js' %}"></script>
+  </head>
+
+  <body>
+    <div class="main">
+      <div class="content-wrap main-login">
+        <form action="{% url 'todo:index' %}" method="post" class="login-wrap">
+          {% csrf_token %}
+          <div class="login-txt">
+            <h2>IDK WHAT TO DO</h2>
+            안녕 강하고 힘센 하루! 할일을 확인할래?
+          </div>
+
+          <div class="login-box">
+            <div class="login-box-id">
+              <p>아이디</p>
+              <input type="text" id="login-id" name="login-id" maxlength="15" placeholder="아이디를 입력하세요">
+            </div>
+
+            <div class="login-box-pw">
+              <p>비밀번호</p>
+              <input type="password" id="login-pw" name="login-pw" maxlength="15" placeholder="비밀번호를 입력하세요">
+            </div>
+          </div>
+
+          {% if error_msg %}
+            <span class="error-msg">아이디랑 비밀번호를 다시 확인해줘!</span>
+          {% endif %}
+          <img src="{% static 'imgs/ico-start.png' %}" id="btn-login">
+          <a href="{% url 'todo:join' %}" id="btn-to-join">CREATE ACCOUNT</a>
+
+        </form>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    $('#btn-login').click(function(){
+      $('form').submit();
+    })
+
+  </script>
+
+</html>
